@@ -43,10 +43,12 @@ prompt.get({ properties: {
 function execute(options) {
     sh.config.fatal = true;
     // add user
+    sh.echo('Adding user');
     sh.exec('useradd -s /bin/bash -m ' + options.username);
     // add user to sudo group (append)
     sh.exec('usermod -a -G sudo ' + options.username);
 
+    sh.echo('Applying password');
     // add user password
     nexpect.spawn("passwd " + options.username)
         .expect("Enter new UNIX password:")
@@ -57,8 +59,9 @@ function execute(options) {
             if (err) throw err;
         });
 
+    sh.echo('Grunting privilege');
     // grunt user advanced privilege
-    sh.exec('echo "' + options.username + ' ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers');
+    sh.echo('"' + options.username + ' ALL=(ALL) NOPASSWD:ALL"').toEnd('/etc/sudoers');
 
     sh.exec('mkdir /home/' + options.username + '/.ssh');
 
