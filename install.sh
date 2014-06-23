@@ -24,4 +24,8 @@ sudo npm install -g shelljs
 # Install oh-my-zsh
 wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | sudo sh
 
+sudo git clone https://github.com/taoyuan/linux-setups
 
+cd linux-setups
+
+npm install
