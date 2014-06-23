@@ -77,7 +77,7 @@ function execute(options) {
     sh.echo(options.publicKey).toEnd(pathAuthorizedKeys(options.username));
 
     // backup original config file
-    sh.cp('/etc/ssh/sshd_config', '/etc/ssh/sshd_config.bak');
+    sh.cp('-f', '/etc/ssh/sshd_config', '/etc/ssh/sshd_config.bak');
 
     editor = prop.createEditor("/etc/ssh/sshd_config", { separator: ' ' });
     editor.set('Port', options.port);
