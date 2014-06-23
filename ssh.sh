@@ -65,7 +65,7 @@ useradd -s /bin/bash -m $USERNAME
 usermod -a -G sudo $USERNAME
 
 # grunt user advanced privilege
-echo "$USERNAME         ALL=(ALL)       NOPASSWD:ALL" >> /etc/sudoers
+echo "$USERNAME ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 
 # add user password
 expect << EOF

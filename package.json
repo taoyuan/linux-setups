@@ -1,0 +1,24 @@
+{
+  "name": "linux-setups",
+  "version": "0.0.1",
+  "description": "linux-setups ============",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/taoyuan/linux-setups.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/taoyuan/linux-setups/issues"
+  },
+  "homepage": "https://github.com/taoyuan/linux-setups",
+  "dependencies": {
+    "nexpect": "^0.4.2",
+      "prompt": "^0.2.13",
+      "shelljs": "^0.3.0"
+  }
+}
