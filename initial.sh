@@ -15,7 +15,7 @@ sudo apt-get -yq install git-core zsh zip unzip expect locate ntp
 
 # adds support for add-apt-repository
 sudo apt-get -yq install python-software-properties
-sudo add-apt-repository ppa:chris-lea/node.js
+sudo add-apt-repository -y ppa:chris-lea/node.js
 
 # Update and upgrade
 sudo apt-get -yq update
