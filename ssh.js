@@ -64,7 +64,7 @@ function execute(options) {
     // grunt user advanced privilege
     sh.echo(options.username + ' ALL=(ALL) NOPASSWD:ALL').toEnd('/etc/sudoers');
 
-    if (!fs.existsSync('mkdir /home/' + options.username + '/.ssh')) {
+    if (!fs.existsSync('/home/' + options.username + '/.ssh')) {
         sh.exec('mkdir /home/' + options.username + '/.ssh');
     }
 
