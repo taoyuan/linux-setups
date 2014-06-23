@@ -3,6 +3,7 @@
 var sh = require('shelljs');
 var prompt = require('prompt');
 var nexpect = require('nexpect');
+var fs = require('fs');
 
 //
 // Start the prompt
@@ -61,13 +62,15 @@ function execute(options) {
 
     sh.echo('Grunting privilege');
     // grunt user advanced privilege
-    sh.echo('"' + options.username + ' ALL=(ALL) NOPASSWD:ALL"').toEnd('/etc/sudoers');
+    sh.echo(options.username + ' ALL=(ALL) NOPASSWD:ALL').toEnd('/etc/sudoers');
 
-    sh.exec('mkdir /home/' + options.username + '/.ssh');
+    if (!fs.existsSync('mkdir /home/' + options.username + '/.ssh')) {
+        sh.exec('mkdir /home/' + options.username + '/.ssh');
+    }
 
     sh.exec('touch /home/' + options.username + '/.ssh/authorized_keys');
 
-    sh.exec('echo "ssh-rsa ' + options.username + '" | sed \':a;N;$!ba;s/\n//g\' >> /home/$USERNAME/.ssh/authorized_keys');
+    sh.echo(options.publicKey).toEnd('/home/$USERNAME/.ssh/authorized_keys');
 
     // backup original config file
     sh.exec('cp /etc/ssh/sshd_config /etc/ssh/sshd_config.bak');
