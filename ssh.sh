@@ -41,11 +41,11 @@ echo -n "SSH Public Key (end input with ESC): "
 read -d `echo -e "\e"` PUBLICKEY
 echo ""
 
-#if [ -z "$PUBLICKEY" ]
-#then
-#    echo "Public Key must not be empty"
-#    exit
-#fi
+if [ -z "$PUBLICKEY" ]
+then
+    echo "Public Key must not be empty"
+    exit
+fi
 
 ###
 
@@ -102,7 +102,7 @@ sed -e "s/#\?PubkeyAuthentication .*/PubkeyAuthentication yes/g" -i /etc/ssh/ssh
 
 sed -e "s/#\?PermitRootLogin .*/PermitRootLogin no/g" -i /etc/ssh/sshd_config
 
-# sed -e "s/#\?PasswordAuthentication .*/PasswordAuthentication no/g" -i /etc/ssh/sshd_config
+sed -e "s/#\?PasswordAuthentication .*/PasswordAuthentication no/g" -i /etc/ssh/sshd_config
 
 # restart ssh
 service ssh restart

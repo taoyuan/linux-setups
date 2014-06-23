@@ -24,5 +24,10 @@ sudo apt-get -yq install nodejs
 
 sudo updatedb
 
+# Install useful npm stuff
+sudo npm install -g shelljs
+
 # Install oh-my-zsh
 wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | sudo sh
+
+
