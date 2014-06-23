@@ -18,7 +18,8 @@
   "homepage": "https://github.com/taoyuan/linux-setups",
   "dependencies": {
     "nexpect": "^0.4.2",
-      "prompt": "^0.2.13",
-      "shelljs": "^0.3.0"
+    "prompt": "^0.2.13",
+    "properties-parser": "git://github.com/taoyuan/node-properties-parser",
+    "shelljs": "^0.3.0"
   }
 }

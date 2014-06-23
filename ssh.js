@@ -4,6 +4,7 @@ var sh = require('shelljs');
 var prompt = require('prompt');
 var nexpect = require('nexpect');
 var fs = require('fs');
+var prop = require('properties-parser');
 
 //
 // Start the prompt
@@ -61,9 +62,11 @@ function execute(options) {
         });
 
     sh.echo('Grunting privilege');
-    // grunt user advanced privilege
-    sh.echo(options.username + ' ALL=(ALL) NOPASSWD:ALL').toEnd('/etc/sudoers');
 
+    // grunt user advanced privilege
+    var editor = prop.createEditor("/etc/sudoers", { separator: ' ' });
+    editor.set(options.username, 'ALL=(ALL) NOPASSWD:ALL');
+    editor.save();
 
     if (!fs.existsSync(pathSSH(options.username))) {
         sh.exec('mkdir ' + pathSSH(options.username));
@@ -74,20 +77,20 @@ function execute(options) {
     sh.echo(options.publicKey).toEnd(pathAuthorizedKeys(options.username));
 
     // backup original config file
-    sh.exec('cp /etc/ssh/sshd_config /etc/ssh/sshd_config.bak');
+    sh.cp('/etc/ssh/sshd_config /etc/ssh/sshd_config.bak');
 
-    sh.exec('sed -e "s/#\?Port .*/Port $PORT/g" -i /etc/ssh/sshd_config');
-
-    sh.exec('sed -e "s/#\?RSAAuthentication .*/RSAAuthentication yes/g" -i /etc/ssh/sshd_config');
-
-    sh.exec('sed -e "s/#\?PubkeyAuthentication .*/PubkeyAuthentication yes/g" -i /etc/ssh/sshd_config');
-
-    sh.exec('sed -e "s/#\?PermitRootLogin .*/PermitRootLogin no/g" -i /etc/ssh/sshd_config');
-
-    sh.exec('sed -e "s/#\?PasswordAuthentication .*/PasswordAuthentication no/g" -i /etc/ssh/sshd_config');
+    editor = prop.createEditor("/etc/ssh/sshd_config", { separator: ' ' });
+    editor.set('Port', options.port);
+    editor.set('RSAAuthentication', 'yes');
+    editor.set('PubkeyAuthentication', 'yes');
+    editor.set('PermitRootLogin', 'no');
+    editor.set('PasswordAuthentication', 'yes');
+    editor.save();
 
     // restart ssh
     sh.exec('service ssh restart');
+
+    sh.exit(0);
 }
 
 function pathSSH(username) {
