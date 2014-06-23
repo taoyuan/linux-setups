@@ -64,13 +64,14 @@ function execute(options) {
     // grunt user advanced privilege
     sh.echo(options.username + ' ALL=(ALL) NOPASSWD:ALL').toEnd('/etc/sudoers');
 
-    if (!fs.existsSync('/home/' + options.username + '/.ssh')) {
-        sh.exec('mkdir /home/' + options.username + '/.ssh');
+
+    if (!fs.existsSync(pathSSH(options.username))) {
+        sh.exec('mkdir ' + pathSSH(options.username));
     }
 
-    sh.exec('touch /home/' + options.username + '/.ssh/authorized_keys');
+    sh.exec('touch ' + pathAuthorizedKeys(options.username));
 
-    sh.echo(options.publicKey).toEnd('/home/$USERNAME/.ssh/authorized_keys');
+    sh.echo(options.publicKey).toEnd(pathAuthorizedKeys(options.username));
 
     // backup original config file
     sh.exec('cp /etc/ssh/sshd_config /etc/ssh/sshd_config.bak');
@@ -87,4 +88,12 @@ function execute(options) {
 
     // restart ssh
     sh.exec('service ssh restart');
+}
+
+function pathSSH(username) {
+    return '/home/' + username + '/.ssh';
+}
+
+function pathAuthorizedKeys(username) {
+    return '/home/' + username + '/.ssh/authorized_keys';
 }
