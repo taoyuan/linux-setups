@@ -44,8 +44,9 @@ prompt.get({ properties: {
 
 function execute(options) {
     sh.config.fatal = true;
+
     // add user
-    sh.echo('Adding user');
+    sh.echo('Adding user `' + options.username + '`');
     sh.exec('useradd -s /bin/bash -m ' + options.username);
     // add user to sudo group (append)
     sh.exec('usermod -a -G sudo ' + options.username);
@@ -61,19 +62,17 @@ function execute(options) {
             if (err) throw err;
         });
 
-    sh.echo('Grunting privilege');
-
-    // grunt user advanced privilege
+    sh.echo('Adding `' + options.username + '` to sudoers');
+    // grant user advanced privilege
     var editor = prop.createEditor("/etc/sudoers", { separator: ' ' });
     editor.set(options.username, 'ALL=(ALL) NOPASSWD:ALL');
     editor.save();
 
+    sh.echo('Applying public key authentication and block root login');
     if (!fs.existsSync(pathSSH(options.username))) {
         sh.exec('mkdir ' + pathSSH(options.username));
     }
-
     sh.exec('touch ' + pathAuthorizedKeys(options.username));
-
     sh.echo(options.publicKey).toEnd(pathAuthorizedKeys(options.username));
 
     // backup original config file
@@ -90,6 +89,7 @@ function execute(options) {
     // restart ssh
     sh.exec('service ssh restart');
 
+    sh.echo('Done Successful');
     sh.exit(0);
 }
 
