@@ -19,7 +19,7 @@
   "dependencies": {
     "nexpect": "^0.4.2",
     "prompt": "^0.2.13",
-    "properties-parser": "git://github.com/taoyuan/node-properties-parser",
+    "properties-parser": "taoyuan/node-properties-parser",
     "shelljs": "^0.3.0"
   }
 }
