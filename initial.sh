@@ -8,21 +8,21 @@ then
 fi
 
 # Update and upgrade
-apt-get -yq update
+sudo apt-get -yq update
 
 # Install useful stuff
-apt-get -yq install git-core zsh zip unzip expect locate ntp
+sudo apt-get -yq install git-core zsh zip unzip expect locate ntp
 
 # adds support for add-apt-repository
-apt-get -yq install python-software-properties
-add-apt-repository ppa:chris-lea/node.js
+sudo apt-get -yq install python-software-properties
+sudo add-apt-repository ppa:chris-lea/node.js
 
 # Update and upgrade
-apt-get -yq update
+sudo apt-get -yq update
 
-apt-get -yq install nodejs
+sudo apt-get -yq install nodejs
 
-updatedb
+sudo updatedb
 
 # Install oh-my-zsh
 wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | sh
