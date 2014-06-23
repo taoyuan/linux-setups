@@ -23,3 +23,6 @@ apt-get -yq update
 apt-get -yq install nodejs
 
 updatedb
+
+# Install oh-my-zsh
+wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | sh
