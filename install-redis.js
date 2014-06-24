@@ -51,6 +51,7 @@ if (ver) {
 
 // install redis
 function install(opts) {
+    sh.echo('Install redis');
     cmds = [
         'sudo apt-get -yq update',
         'sudo apt-get -yq install python-software-properties',
@@ -65,6 +66,18 @@ function install(opts) {
 }
 
 // setup redis
+// see: http://blog.sensible.io/2013/08/20/setting-up-redis-for-production-environment.html
 function setup(opts) {
-    sh.echo('setup');
+    sh.echo('Setup redis');
+    return;
+    var editor = prop.createEditor('/etc/redis/redis.conf', { separator: ' ' });
+    //  dump the dataset every 15 minutes (900 seconds) if at least one key changed,
+    editor.set('save', '900 1');
+    editor.set('appendonly', 'yes');
+    editor.set('appendfsync', 'everysec');
+
+    editor.set('daemonize', 'yes');
+    editor.set('bind', '127.0.0.1');
+
+    editor.save();
 }
