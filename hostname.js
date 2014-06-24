@@ -6,8 +6,9 @@ var sh = require('shelljs');
 var argv = require('minimist')(process.argv.slice(2));
 
 var hostname = sh.exec('hostname', { silent: true }).output;
+hostname = hostname.replace('\n', '');
 if (argv._.length < 1) {
-    sh.echo('Expect new name!', hostname);
+    sh.echo('Expect a new name!');
     sh.exit(1);
 }
 var newname = argv._[0];
