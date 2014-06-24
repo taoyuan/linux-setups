@@ -8,21 +8,28 @@ var opts = { silent: false },
 
 if (sh.which('redis-server')) {
     var version = sh.exec('redis-server', {silent: true}).output;
-    sh.echo('redis v', version, 'has been installed, exit now');
-    sh.exit(1);
+    sh.echo('Redis', version, 'has been installed.');
 }
 
-// Install redis-server
-cmds = [
-    'sudo apt-get -yq update',
-    'sudo apt-get -yq install python-software-properties',
-    'sudo add-apt-repository -y ppa:rwky/redis',
-    'sudo apt-get -yq update',
-    'sudo apt-get -yq install redis-server'
-];
+install(opts);
+setup(opts);
 
-commands.forEach(function (cmd) {
-    sh.exec(cmd, opts);
-});
+// install redis
+function install(opts) {
+    cmds = [
+        'sudo apt-get -yq update',
+        'sudo apt-get -yq install python-software-properties',
+        'sudo add-apt-repository -y ppa:rwky/redis',
+        'sudo apt-get -yq update',
+        'sudo apt-get -yq install redis-server'
+    ];
 
-// Config redis
+    commands.forEach(function (cmd) {
+        sh.exec(cmd, opts);
+    });
+}
+
+// setup redis
+function setup(opts) {
+
+}
