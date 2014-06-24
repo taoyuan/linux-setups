@@ -1,6 +1,7 @@
 "use strict";
 
 var sh = require('shelljs');
+var prompt = require('prompt');
 var prop = require('properties-parser');
 
 var opts = { silent: false },
