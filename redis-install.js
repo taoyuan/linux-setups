@@ -85,5 +85,6 @@ function doSetup(opts) {
     var editor = prop.createEditor('/etc/redis/conf.d/local.conf', { separator: ' ' });
     editor.set('bind', '127.0.0.1');
     editor.save();
+    sh.echo('Restart redis server');
     sh.exec('sudo service redis-server restart');
 }
