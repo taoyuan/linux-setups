@@ -29,8 +29,8 @@ function install(callback) {
             function (err, result) {
                 if (result.continue == 'y' || result.continue == 'Y') {
                     doInstall(opts);
-                    callback && callback(err);
                 }
+                callback && callback(err);
             }
         );
     } else {
@@ -52,8 +52,8 @@ function setup(callback) {
             function (err, result) {
                 if (result.continue == 'y' || result.continue == 'Y') {
                     doSetup(opts);
-                    callback && callback(err);
                 }
+                callback && callback(err);
             }
         );
     } else {
