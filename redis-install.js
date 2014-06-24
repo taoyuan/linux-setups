@@ -9,20 +9,20 @@ var opts = { silent: false },
 
 if (sh.which('redis-server')) {
     ver = sh.exec('redis-server -v', {silent: true}).output;
-    sh.echo('Redis', ver, 'has been installed.');
+    sh.echo(ver, 'has been installed.');
 }
 
 if (ver) {
     prompt.start();
     prompt.get({ properties: {
-            continue: {
+            c: {
                 description: 'Continue to Install? [Y/n]'.yellow,
                 default: 'n',
                 required: true
             }
         }},
         function (err, result) {
-            if (result.continue == 'y' || result.continue == 'Y') {
+            if (result.c == 'y' || result.c == 'Y') {
                 install(opts);
             }
         }
@@ -34,14 +34,14 @@ if (ver) {
 if (ver) {
     prompt.start();
     prompt.get({ properties: {
-            continue: {
+            c: {
                 description: 'Continue to Setup? [Y/n]'.yellow,
                 default: 'n',
                 required: true
             }
         }},
         function (err, result) {
-            if (result.continue == 'y' || result.continue == 'Y') {
+            if (result.c == 'y' || result.c == 'Y') {
                 setup(opts);
             }
         }
