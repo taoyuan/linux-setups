@@ -1,6 +1,7 @@
 "use strict";
 
 var sh = require('shelljs');
+var async = require('async');
 var prompt = require('prompt');
 var prop = require('properties-parser');
 
@@ -9,49 +10,61 @@ var opts = { silent: false },
 
 if (sh.which('redis-server')) {
     ver = sh.exec('redis-server -v', {silent: true}).output;
-    sh.echo(ver + 'has been installed.');
+    sh.echo(ver, 'has been installed.');
 }
 
-if (ver) {
-    prompt.start();
-    prompt.get({ properties: {
-            c: {
-                description: 'Continue to Install? [Y/n]'.yellow,
-                default: 'n',
-                required: true
+async.series([install, setup], function () {
+});
+
+function install(callback) {
+    if (ver) {
+        prompt.start();
+        prompt.get({ properties: {
+                continue: {
+                    description: 'Continue to Install? [Y/n]'.yellow,
+                    default: 'n',
+                    required: true
+                }
+            }},
+            function (err, result) {
+                if (result.continue == 'y' || result.continue == 'Y') {
+                    doInstall(opts);
+                    callback && callback(err);
+                }
             }
-        }},
-        function (err, result) {
-            if (result.c == 'y' || result.c == 'Y') {
-                install(opts);
-            }
-        }
-    );
-} else {
-    install(opts);
+        );
+    } else {
+        doInstall(opts);
+        callback && callback(null);
+    }
 }
 
-if (ver) {
-    prompt.start();
-    prompt.get({ properties: {
-            c: {
-                description: 'Continue to Setup? [Y/n]'.yellow,
-                default: 'n',
-                required: true
+function setup(callback) {
+    if (ver) {
+        prompt.start();
+        prompt.get({ properties: {
+                continue: {
+                    description: 'Continue to Setup? [Y/n]'.yellow,
+                    default: 'n',
+                    required: true
+                }
+            }},
+            function (err, result) {
+                if (result.continue == 'y' || result.continue == 'Y') {
+                    doSetup(opts);
+                    callback && callback(err);
+                }
             }
-        }},
-        function (err, result) {
-            if (result.c == 'y' || result.c == 'Y') {
-                setup(opts);
-            }
-        }
-    );
-} else {
-    setup(opts);
+        );
+    } else {
+        doSetup(opts);
+        callback && callback(null);
+    }
 }
+
 
 // install redis
-function install(opts) {
+function doInstall(opts) {
     sh.echo('Install redis');
     cmds = [
         'sudo apt-get -yq update',
@@ -67,7 +80,7 @@ function install(opts) {
 }
 
 // setup redis
-function setup(opts) {
+function doSetup(opts) {
     sh.echo('Setup redis');
     var editor = prop.createEditor('/etc/redis/conf.d/local.conf', { separator: ' ' });
     editor.set('bind', '127.0.0.1');
