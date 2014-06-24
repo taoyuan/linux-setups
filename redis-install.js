@@ -5,7 +5,7 @@ var async = require('async');
 var prompt = require('prompt');
 var prop = require('properties-parser');
 
-var opts = { silent: false },
+var opts = { silent: true },
     cmds, ver;
 
 if (sh.which('redis-server')) {
@@ -75,6 +75,7 @@ function doInstall(opts) {
     ];
 
     cmds.forEach(function (cmd) {
+        sh.echo(cmd);
         sh.exec(cmd, opts);
     });
 }
