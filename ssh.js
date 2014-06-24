@@ -53,7 +53,7 @@ function execute(options) {
 
     sh.echo('Applying password');
     // add user password
-    nexpect.spawn("passwd " + options.username)
+    nexpect.spawn("passwd", options.username)
         .expect("Enter new UNIX password:")
         .sendline(options.password)
         .expect("Retype new UNIX password:")
