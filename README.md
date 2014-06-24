@@ -33,4 +33,10 @@ prompt: SSH Port:
 ## Install Redis
 #### TODO
 
+## Modify HOSTNAME
+
+```
+sudo node hostname.js <newname>
+```
+
 
