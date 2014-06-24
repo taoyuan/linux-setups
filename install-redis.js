@@ -24,7 +24,7 @@ function install(opts) {
         'sudo apt-get -yq install redis-server'
     ];
 
-    commands.forEach(function (cmd) {
+    cmds.forEach(function (cmd) {
         sh.exec(cmd, opts);
     });
 }
