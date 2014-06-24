@@ -8,7 +8,7 @@ var opts = { silent: false },
     cmds, ver;
 
 if (sh.which('redis-server')) {
-    ver = sh.exec('redis-server', {silent: true}).output;
+    ver = sh.exec('redis-server', '-v', {silent: true}).output;
     sh.echo('Redis', ver, 'has been installed.');
 }
 
@@ -16,7 +16,7 @@ if (ver) {
     prompt.start();
     prompt.get({ properties: {
             continue: {
-                description: 'Continue to Reinstall? [Y/n]'.yellow,
+                description: 'Continue to Install? [Y/n]'.yellow,
                 default: 'n',
                 required: true
             }
