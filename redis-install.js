@@ -9,7 +9,7 @@ var opts = { silent: false },
 
 if (sh.which('redis-server')) {
     ver = sh.exec('redis-server -v', {silent: true}).output;
-    sh.echo(ver, 'has been installed.');
+    sh.echo(ver + 'has been installed.');
 }
 
 if (ver) {
