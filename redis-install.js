@@ -8,7 +8,7 @@ var opts = { silent: false },
     cmds, ver;
 
 if (sh.which('redis-server')) {
-    ver = sh.exec('redis-server', '-v', {silent: true}).output;
+    ver = sh.exec('redis-server -v', {silent: true}).output;
     sh.echo('Redis', ver, 'has been installed.');
 }
 
