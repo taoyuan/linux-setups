@@ -4,15 +4,50 @@ var sh = require('shelljs');
 var prop = require('properties-parser');
 
 var opts = { silent: false },
-    cmds;
+    cmds, ver;
 
 if (sh.which('redis-server')) {
-    var version = sh.exec('redis-server', {silent: true}).output;
-    sh.echo('Redis', version, 'has been installed.');
+    ver = sh.exec('redis-server', {silent: true}).output;
+    sh.echo('Redis', ver, 'has been installed.');
 }
 
-install(opts);
-setup(opts);
+if (ver) {
+    prompt.start();
+    prompt.get({ properties: {
+            continue: {
+                description: 'Continue to Reinstall? [Y/n]'.yellow,
+                default: 'n',
+                required: true
+            }
+        }},
+        function (err, result) {
+            if (result.continue == 'y' || result.continue == 'Y') {
+                install(opts);
+            }
+        }
+    );
+} else {
+    install(opts);
+}
+
+if (ver) {
+    prompt.start();
+    prompt.get({ properties: {
+            continue: {
+                description: 'Continue to Setup? [Y/n]'.yellow,
+                default: 'n',
+                required: true
+            }
+        }},
+        function (err, result) {
+            if (result.continue == 'y' || result.continue == 'Y') {
+                setup(opts);
+            }
+        }
+    );
+} else {
+    setup(opts);
+}
 
 // install redis
 function install(opts) {
@@ -31,5 +66,5 @@ function install(opts) {
 
 // setup redis
 function setup(opts) {
-
+    sh.echo('setup');
 }

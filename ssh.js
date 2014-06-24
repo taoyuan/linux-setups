@@ -6,13 +6,7 @@ var nexpect = require('nexpect');
 var fs = require('fs');
 var prop = require('properties-parser');
 
-//
-// Start the prompt
-//
 prompt.start();
-//
-// Get two properties from the user: username and email
-//
 prompt.get({ properties: {
         username: {
             description: 'Username',
