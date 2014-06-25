@@ -15,6 +15,8 @@ if (sh.which('redis-server')) {
     sh.echo(ver, 'has been installed.');
 }
 
+// TODO prompt for bind hosts
+
 async.series([install, setup], function () {
 });
 
