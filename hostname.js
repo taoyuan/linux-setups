@@ -14,5 +14,6 @@ if (argv._.length < 1) {
 var newname = argv._[0];
 
 sh.echo('Change Hostname: ' + hostname + ' -> ' + newname);
+sh.sed('-i', hostname, newname, '/etc/hostname');
 sh.exec('sudo hostname ' + newname);
 sh.sed('-i', hostname, newname, '/etc/hosts');
