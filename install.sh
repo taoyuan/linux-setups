@@ -5,7 +5,7 @@ sudo apt-get -yq update
 
 # Install useful stuff
 sudo apt-get -yq install git-core zsh zip unzip expect locate ntp
-sudo apt-get -yq install gcc gcc-c++ make
+sudo apt-get -yq install gcc g++ gcc-c++ make
 
 # adds support for add-apt-repository
 sudo apt-get -yq install python-software-properties
