@@ -46,7 +46,7 @@ function execute(options) {
   // add user
   sh.echo('Adding user `' + options.username + '`');
   sh.exec('useradd -s /bin/bash -m ' + options.username);
-  sh.exec('chown -R ' + options.username + ':' + options.username + 'deploy ~');
+  sh.exec('chown -R ' + options.username + ':' + options.username + ' /home/' + options.username);
   // add user to sudo group (append)
   sh.exec('usermod -a -G sudo ' + options.username);
 
