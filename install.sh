@@ -7,11 +7,12 @@ sudo apt-get -yq update
 sudo apt-get -yq install git-core zsh zip unzip expect locate ntp
 sudo apt-get -yq install gcc g++ gcc-c++ make
 
-# Note the new setup script name for Node.js v0.12
-curl -sL https://deb.nodesource.com/setup_0.12 | sudo bash -
+# adds support for add-apt-repository
+sudo apt-get -yq install python-software-properties
+sudo add-apt-repository -y ppa:rwky/nodejs
 
-# Then install with:
-sudo apt-get install -y nodejs
+sudo apt-get -yq update
+sudo apt-get -yq install nodejs
 
 sudo updatedb
 
