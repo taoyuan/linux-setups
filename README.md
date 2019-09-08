@@ -1,6 +1,8 @@
 linux-setups
 ============
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/taoyuan/linux-setups.svg)](https://greenkeeper.io/)
+
 > Linux setup scripts
 
 ## Installation
